@@ -54,7 +54,7 @@ grinit () {
         echo "Please give an argument!" 
     else
         touch README.md
-        printf "##ReadMe\nGtG sciptzz" >> README.md
+        printf "##ReadMe\nGtG scriptzz" >> README.md
         gi
         ga README.md
         gc "First commit!"
