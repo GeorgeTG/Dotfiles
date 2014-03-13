@@ -36,6 +36,8 @@ alias mktgz='tar -zcvf'
 alias untgz='tar -zxvf'
 
 #git 
+alias gi='git init'
+
 alias gc='git commit -m'
 alias gca='git commit -a -m'
 
@@ -46,6 +48,21 @@ alias gradd='git remote add '
 
 alias gadd='git add '
 alias gst='git status'
+
+grinit () {
+    if [ -z "$1" ]; then
+        echo "Please give an argument!" 
+    else
+        touch README.md
+        printf "##ReadMe\nGtG sciptzz" >> README.md
+        gi
+        ga README.md
+        gc "First commit!"
+        gradd origin $1
+        gps -u origin master
+
+    fi
+}
 
 #user
 alias lgroup='cat /etc/group'
