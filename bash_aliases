@@ -5,13 +5,9 @@ alias da='ls -la'
 alias tree='tree -aC'
 
 #system
-fprocess () {
-    if [ -z "$1" ]; then
-        echo "Please give an argument!" 
-    else
-        ps aux | grep $1
-    fi
-}
+alias lprocess='ps aux'
+alias fprocess='ps aux | grep'
+
 #apt
 alias getapp='sudo apt-get install'
 alias update='sudo apt-get update; sudo apt-get upgrade'
