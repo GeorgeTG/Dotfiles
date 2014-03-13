@@ -5,8 +5,8 @@ alias da='ls -la'
 alias tree='tree -aC'
 
 #system
-alias lprocess='ps aux'
-alias fprocess='ps aux | grep'
+alias lprocess='pgrep -l .'
+alias fprocess='pgrep -l'
 
 #apt
 alias getapp='sudo apt-get install'
