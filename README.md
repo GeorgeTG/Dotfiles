@@ -1,2 +1,2 @@
 ##ReadMe
-GtG sciptzz
+scriptzz
