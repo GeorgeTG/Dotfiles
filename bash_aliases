@@ -73,6 +73,7 @@ alias fgroup='cat /etc/group | grep '
 #prog
 alias pyinstall='sudo pip install'
 alias py='python'
+alias jv='java -jar'
     #compile with warnings and debug symbols
 gccc () {
     str=$1
