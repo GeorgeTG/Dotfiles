@@ -40,19 +40,25 @@ alias gca='git commit -a -m'
 alias gps='git push'
 alias gpl='git pull'
 
-alias gradd='git remote add '
+alias gradd='git remote add origin'
+alias gbsu='git branch --set-upstream-to='
 
-alias gadd='git add '
+alias gadd='git add'
 alias gst='git status'
 
 grinit () {
     if [ -z "$1" ]; then
         echo "Please give an argument!" 
     else
-        touch README.md
-        printf "##ReadMe\nGtG scriptzz" >> README.md
         gi
-        ga README.md
+
+        if [ -z "$2"]; then
+            touch README.md
+            gadd README.md
+        else
+            gadd $2
+        fi
+
         gc "First commit!"
         gradd origin $1
         gps -u origin master
