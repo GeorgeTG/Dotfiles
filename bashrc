@@ -103,6 +103,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # python virtual enviroment
+export WORKON_HOME=~/.venvs
 source /usr/local/bin/virtualenvwrapper.sh
 
 # enable programmable completion features (you don't need to enable
