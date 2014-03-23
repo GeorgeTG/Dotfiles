@@ -1,7 +1,7 @@
 #navigation
 alias ..='cd ..'
 alias d='ls -hl --sort=extension --time-style=long-iso --group-directories-first'
-alias da='ls -la'
+alias da='d -a'
 alias tree='tree -aC'
 alias cdvenv='cd $VIRTUAL_ENV' #change directory to current virtual env.
 
