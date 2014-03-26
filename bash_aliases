@@ -80,3 +80,9 @@ gccc () {
         gcc -Wall -g $str -o  ${str%.c}
     fi
 }
+getheaderloc () {
+    str=$1
+    if [ $str != "" ]; then
+        echo "#include <$str>" | gcc -E -x c - | grep $str
+    fi
+}
