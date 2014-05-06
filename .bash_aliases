@@ -12,7 +12,7 @@ alias cdvenv='cd $VIRTUAL_ENV' #change directory to current virtual env.
 #system
 alias lprocess='pgrep -l .'
 alias fprocess='pgrep -l'
-
+alias lspart='sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 #apt
 alias getapp='sudo apt-get install'
 alias update='sudo apt-get update; sudo apt-get upgrade'
