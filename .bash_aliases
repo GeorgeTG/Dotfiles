@@ -39,8 +39,10 @@ alias gi='git init'
 
 alias gc='git commit -m'
 alias gca='git commit -a -m'
+alias gcl='git clone'
 
 alias gps='git push'
+alias gpsum='git push -u origin master'
 alias gpl='git pull'
 
 alias gradd='git remote add origin'
@@ -48,26 +50,6 @@ alias gbsu='git branch --set-upstream-to='
 
 alias gadd='git add'
 alias gst='git status'
-
-grinit () {
-    if [ -z "$1" ]; then
-        echo "Please give an argument!" 
-    else
-        gi
-
-        if [ -z "$2"]; then
-            touch README.md
-            gadd README.md
-        else
-            gadd $2
-        fi
-
-        gc "First commit!"
-        gradd origin $1
-        gps -u origin master
-
-    fi
-}
 
 #user
 alias lgroup='cat /etc/group'
@@ -77,16 +59,11 @@ alias fgroup='cat /etc/group | grep '
 alias pyinstall='sudo pip install'
 alias py='python'
 alias jv='java -jar'
-    #compile with warnings and debug symbols
-gccc () {
-    str=$1
-    if [ $str != "" ]; then
-        gcc -Wall -g $str -o  ${str%.c}
-    fi
-}
+
 getheaderloc () {
     str=$1
     if [ $str != "" ]; then
         echo "#include <$str>" | gcc -E -x c - | grep $str
     fi
 }
+
