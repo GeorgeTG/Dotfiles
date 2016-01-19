@@ -1,0 +1,7 @@
+#!/bin/bash
+source $(dirname $0)/config
+
+VOLUME=$(pamixer --get-volume)
+output="%{F$COLOR_ICON} %{F-}$VOLUME"
+
+echo $output $DIV;

@@ -1,0 +1,8 @@
+#!/bin/bash
+source $(dirname $0)/config
+
+temp=$((`sensors | grep "Physical id 0" | cut -d'+' -f2 | head -c2`))
+
+	output="%{F$COLOR_ICON} %{F-}$temp°"
+
+echo $output $DIV;

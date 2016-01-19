@@ -1,0 +1,60 @@
+#! /bin/sh
+sxhkd &
+
+bspc config border_width        1
+bspc config window_gap         10
+bspc config top_padding        22
+bspc config left_padding       0
+bspc config split_ratio         0.50
+bspc config borderless_monocle  true
+bspc config gapless_monocle     true
+bspc config focus_by_distance   true
+bspc config focus_follows_pointer true
+bspc config normal_border_color "#333333"
+bspc config active_border_color "#2d2d2d"
+bspc config focused_border_color "#2d2d2d"
+bspc config presel_border_color "#2d2d2d"
+bspc config urgent_border_color "#d64937"
+bspc config focused_locked_border_color "#f9f9f9"
+bspc config normal_frame_opacity 0.0
+bspc config focused_frame_opacity 0.1
+bspc config focus_follows_pointer true
+
+bspc monitor DFP10 -n "Primary" -d "1" "2" "3"
+bspc monitor DFP5 -n "Secondary" -d "4" "5" "6"
+
+bspc rule -a Chromium desktop=^2
+bspc rule -a Screenkey manage=off
+
+################################################################################
+#                             X Server stuff                                   #
+################################################################################
+xsetroot -cursor_name left_ptr
+
+#merge resources
+xrdb -merge ~/.Xresources
+
+#keyboard stuff
+#https://wiki.archlinux.org/index.php/Keyboard_configuration_in_Xorg
+setxkbmap -option caps:swapescape
+setxkbmap -layout us,gr -option grp:alt_shift_toggle
+
+################################################################################
+
+################################################################################
+## autostart
+################################################################################
+unclutter -root -idle 5 &
+feh --bg-scale $HOME/Pictures/current_wallpaper &
+seq 0 1 | xargs -l1 -I@ compton -b -d :0.@
+dunst -config $HOME/.config/dunstrc  &
+
+#audioz
+pulseaudio --start
+
+if [ -f $HOME/.config/bspwm/functions  ]; then
+    source $HOME/.config/bspwm/functions > /dev/null
+fi
+
+#panel
+cd $HOME/.config/bspwm/panel/ && ./panel &
