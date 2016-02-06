@@ -50,6 +50,7 @@ compton &
 
 #audioz
 pulseaudio --start
+./current_song &
 
 #panel
 cd $HOME/.config/bspwm/panel/ && ./panel &
