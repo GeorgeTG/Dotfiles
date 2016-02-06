@@ -19,7 +19,7 @@ urxvt*internalBorder: 		5
 urxvt*dynamicColors: on
 urxvt.urgentOnBell:  true
 
-urxvt*background:       [99]#2d2d2d
+urxvt*background:       [85]#2d2d2d
 urxvt*foreground:       #f9f9f9
 URxvt*tintColor:     #ffffff
 

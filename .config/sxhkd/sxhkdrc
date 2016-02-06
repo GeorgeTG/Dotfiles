@@ -86,6 +86,21 @@ super + Return
 super + space
 	dmenu_run
 
+XF86AudioPrev
+    mpc prev
+
+
+XF86AudioNext
+    mpc next
+
+
+XF86AudioPlay
+    mpc toggle
+
+
+XF86AudioStop
+    mpc stop
+
 XF86AudioMute
     amixer -q sset Master toggle
 
