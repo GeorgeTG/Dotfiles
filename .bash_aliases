@@ -15,11 +15,12 @@ alias lspart='lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL'
 
 #pacman
 alias getapp='sudo pacman -S'
+alias rmapp='sudo pacman -Rs'
 alias update='sudo pacman -Sy'
 alias upgrade='sudo pacman -Suuy'
 alias findapp='pacman -Ss'
 alias ihasapp='pacman -Qs'
-alias 
+alias lsupdates='pacman -Qu'
 
 #cp commands
 alias cpr='cp -ivR'
@@ -28,7 +29,7 @@ alias cpr='cp -ivR'
 alias rmr='sudo rm -Ivrf'
 
 #alias commands
-alias aliasedit='$EDITOR ~/.bash_aliases'
+alias aliasedit='$EDITOR ~/.bash_aliases && source ~/.bash_aliases'
 
 #tar
 alias mktgz='tar -zcvf'
