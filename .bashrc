@@ -8,12 +8,6 @@ case $- in
       *) return;;
 esac
 EDITOR=vim
-
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-    export TERM='xterm-256color'
-else
-    export TERM='xterm-color'
-fi
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
@@ -44,6 +38,8 @@ fi
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color) color_prompt=yes;;
+    rxvt-unicode-256color) color_prompt=yes;;
+    screen-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -73,11 +69,16 @@ unset color_prompt force_color_prompt
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
 xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
 *)
     ;;
 esac
+
+if [ -f "$HOME/.separator_ps" ]; then
+    . "$HOME/.separator_ps"
+fi
+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -91,27 +92,41 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
+#aliases file
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+    . ~/.bash_aliases > /dev/null
 fi
 
-# python virtual enviroment
-#export WORKON_HOME=~/.venvs
-#source /usr/local/bin/virtualenvwrapper.sh
+###
+#AUTO SSH AGENT
+###
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+    #echo "Initializing new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    #echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    find ~/.ssh/ -regextype posix-extended -regex '.*/id_rsa[_]?[a-z A-Z]*$' -exec /usr/bin/ssh-add {} >/dev/null 2>&1 \;
+}
+
+#if ssh-add is a valid command, aka OpenSSH is installed
+if command -v ssh-add >/dev/null 2>&1; then
+    # Source SSH settings, if applicable
+    if [ -f "${SSH_ENV}" ]; then
+        . "${SSH_ENV}" > /dev/null
+        ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+            start_agent;
+        }
+    else
+        start_agent;
+    fi
+fi
+
+###
+# END AUTO SSH AGENT
+###
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile

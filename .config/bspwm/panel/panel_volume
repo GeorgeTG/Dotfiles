@@ -1,7 +1,7 @@
 #!/bin/bash
 source $(dirname $0)/config
 
-VOLUME=$(pamixer --get-volume)
+VOLUME=$(amixer get Master | awk '$0~/%/{print $5}' | tr -d '[]' | head -n 1)
 output="%{F$COLOR_ICON} %{F-}$VOLUME"
 
 echo $output $DIV;

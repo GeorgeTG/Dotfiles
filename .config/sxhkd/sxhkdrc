@@ -1,11 +1,9 @@
 #
 # bspwm hotkeys
 #
-super + alt + a
-    get_pixel
-
+#
 super + alt + Escape
-	bspc quit
+    bspc quit
 
 super + w
 	bspc window -c
@@ -88,6 +86,26 @@ super + Return
 super + space
 	dmenu_run
 
+XF86AudioMute
+    amixer -q sset Master toggle
+
+XF86AudioLowerVolume
+    amixer -q sset Master 5%-
+
+XF86AudioRaiseVolume
+    amixer -q sset Master 5%+
+
+Print
+    deepin-screenshot
+
+super + r
+    gmrun
+
+super + alt + a
+    get_pixel
+
+
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+

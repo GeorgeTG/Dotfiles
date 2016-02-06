@@ -1,10 +1,12 @@
-short_units yes
-background yes
-out_to_console yes
-out_to_x no
-# Update interval in seconds
-update_interval 3
+-- vim: ts=4 sw=4 noet ai cindent syntax=lua
+conky.config = {
+    short_units = true,
+    background = true,
+    out_to_console = true,
+    out_to_x = false,
+    update_interval = 3
+}
 
-TEXT
-S${execi 1 ./panel_network} ${execi 1 ./panel_ram} ${execi 1 ./panel_temperature} ${execi 1 ./panel_pacman} ${execi 1 ./panel_volume} ${time %I:%M %P}   %{-u}
-
+conky.text = [[
+S${execi 1 ./panel_color} RX: ${downspeed eno1} ${execi 1 ./panel_div} ${execi 1 ./panel_color}TX: ${upspeed eno1} ${execi 1 ./panel_div}${execi 1 ./panel_color} LOAD: ${cpu CPU}% ${execi 1 ./panel_div} TEMP:${execi 1 ./panel_temperature} RAM:${execi 1 ./panel_ram} U:${execi 1 ./panel_pacman} VOL:${execi 1 ./panel_volume} ${time %a %d %b %H:%M }   %{-u}
+]]

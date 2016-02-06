@@ -14,9 +14,8 @@ trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
 mkfifo "$PANEL_FIFO"
 
 bspc control --subscribe > "$PANEL_FIFO" &
-echo "T" >  "$PANEL_FIFO" &
+xtitle -sf 'T%s' > "$PANEL_FIFO" &
 conky -c ./panel_conky > "$PANEL_FIFO" &
-./notify_mpd -d &
 
 cat "$PANEL_FIFO" | ./panel_bar | lemonbar -g $PANEL_GEOMETRY -f "$PANEL_FONT_FAMILY" -F "$COLOR_FOREGROUND" -B "$COLOR_BACKGROUND" -u $LINEHEIGHT &
 wait

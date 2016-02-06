@@ -7,10 +7,11 @@ while read -r line ; do
         S*)
             sys_infos="%{r}${line#?}"
             ;;
-        T*)
-            title=" %{F$COLOR_ICON}%{F-}gtg-devel"
-            ;;
-									    
+		T*)
+			# xtitle output
+			title="%{F$COLOR_FOREGROUND}%{B$COLOR_BACKGROUND} ${line#?} %{B-}%{F-}"
+			;;
+
         W*)
             wm_infos="%{c}"
             IFS=':'
