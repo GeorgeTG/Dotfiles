@@ -1,0 +1,5 @@
+#!/bin/bash
+while :
+do
+    notify-send -t 200 "$(mpc current --wait)"
+done
