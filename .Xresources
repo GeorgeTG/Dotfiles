@@ -2,14 +2,14 @@
 
 ! #########################################
 urxvt*perl-lib:			/usr/lib/urxvt/perl
-urxvt*perl-ext-common:		default,matcher,clipboard
+urxvt*perl-ext-common:		default,matcher,clipboard,vtwheel
 urxvt*perl-matcher: 		1
 urxvt*matcher-button: 		3
-urxvt*url-launcher:		/usr/bin/chromium
+urxvt*url-launcher:		/usr/bin/firefox
 !URxvt*matcher.button: 1
 !URxvt*matcher.pattern.1: \\bwww\\.[\\w-]\\.[\\w./?&@#-]*[\\w/-]
 urxvt*cursorUnderline: 1
-urxvt*letterspace: -5
+urxvt*letterspace: -1
 !urxvt*fading: 			10
 !urxvt*fadeColor: 		#000000	
 urxvt*cursorBlink:		true
@@ -19,6 +19,7 @@ urxvt*internalBorder: 		5
 urxvt*dynamicColors: on
 urxvt.urgentOnBell:  true
 
+urxvt*geometry: 106x50
 urxvt*background:       [85]#2d2d2d
 urxvt*foreground:       #f9f9f9
 URxvt*tintColor:     #ffffff

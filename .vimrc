@@ -7,8 +7,14 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
+let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
+
+"""" PLUGINS AREA
 call vundle#begin()
 
 "Let the plugin manage it self. Required
@@ -21,11 +27,16 @@ Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-Plugin 'CSApprox'
-" All of your Plugins must be added before the following line
+Plugin 'flazz/vim-colorschemes'
+
+Plugin 'godlygeek/csapprox'
+Plugin 'Valloric/YouCompleteMe'
+
 call vundle#end()            " required
+"""" PLUGINS AREA END
+
 filetype plugin indent on    " required
+
 """ syntax highlighting
 syntax on
 
@@ -59,10 +70,6 @@ set wildmenu
 " case insensitive filename completion
 set wildignorecase
 
-""" disable cursor blinking
-set guicursor+=a:blinkon0
-
-
 """ search
 " If the 'ignorecase' option is on, the case of normal letters is ignored.
 " 'smartcase' can be set to ignore case when the pattern contains lowercase
@@ -74,20 +81,40 @@ set smartcase
 set incsearch
 
 
-""" source code lines should be at most 80 characters wide
+""" source code lines should be at most 101 characters wide
 """ set a marker on the 81th text column
-set colorcolumn=81
+set colorcolumn=101
 
 """ folds
 " automatic folds based on syntax
 set foldmethod=indent
 set foldnestmax=1
 
-
+colorscheme PaperColor
 "colorscheme Tomorrow
-colorscheme Tomorrow-Night
+"colorscheme Tomorrow-Night
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night-Eighties
+
+""" Gvim cursor
+highlight Cursor guifg=black guibg=black
+highlight iCursor guifg=black guibg=steelblue
+set guicursor=n-v-c:block-Cursor
+set guicursor+=i:ver100-iCursor
+set guicursor+=n-v-c:blinkon0
+set guicursor+=i:blinkwait10
+
+if &term =~ "xterm\\|rxvt"
+    " use an orange cursor in insert mode
+    let &t_SI = "\<Esc>]12;orange\x7"
+    " use a red cursor otherwise
+    let &t_EI = "\<Esc>]12;223;116;180\x7"
+    silent !echo -ne "\033]12;red\007"
+    " reset cursor when vim exits
+    autocmd VimLeave * silent !echo -ne "\033]112\007"
+    " use \003]12;gray\007 for gnome-terminal and rxvt up to
+    version 9.21
+    endif
 
 
 """ EasyMotion
