@@ -7,9 +7,12 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-let g:ycm_server_python_interpreter = '/usr/bin/python3'
-let g:ycm_python_binary_path = '/usr/bin/python3'
-let g:ycm_autoclose_preview_window_after_insertion = 1
+"" To paste code with no autoindent
+set pastetoggle=<F10>
+
+"let g:ycm_server_python_interpreter = '/usr/bin/python3'
+"let g:ycm_python_binary_path = '/usr/bin/python3'
+"let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -28,9 +31,9 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 Plugin 'flazz/vim-colorschemes'
-
+Plugin 'sunuslee/vim-plugin-random-colorscheme-picker'
 Plugin 'godlygeek/csapprox'
-Plugin 'Valloric/YouCompleteMe'
+Plugin 'nvie/vim-flake8'
 
 call vundle#end()            " required
 """" PLUGINS AREA END
@@ -90,7 +93,7 @@ set colorcolumn=101
 set foldmethod=indent
 set foldnestmax=1
 
-colorscheme PaperColor
+"colorscheme PaperColor
 "colorscheme Tomorrow
 "colorscheme Tomorrow-Night
 "colorscheme Tomorrow-Night-Bright
@@ -245,7 +248,8 @@ endif
 
 " NERDTree show hidden files
 let NERDTreeShowHidden=1
-
+" NERDTree key
+map <C-n> :NERDTreeToggle<CR>
 
 """ open folds when opening a file
 au BufRead * normal zR
