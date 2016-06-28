@@ -1,7 +1,5 @@
 """ .vimrc
 
-
-
 """ Vundle
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible              " be iMproved, required
@@ -10,9 +8,9 @@ filetype off                  " required
 "" To paste code with no autoindent
 set pastetoggle=<F10>
 
-"let g:ycm_server_python_interpreter = '/usr/bin/python3'
-"let g:ycm_python_binary_path = '/usr/bin/python3'
-"let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_server_python_interpreter = '/usr/bin/python3'
+let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_autoclose_preview_window_after_insertion = 1
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -25,15 +23,21 @@ Plugin 'gmarik/Vundle.vim'
 
 """ plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-Plugin 'Lokaltog/vim-easymotion'
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'rust-lang/rust.vim'
 Plugin 'flazz/vim-colorschemes'
-Plugin 'sunuslee/vim-plugin-random-colorscheme-picker'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'godlygeek/csapprox'
 Plugin 'nvie/vim-flake8'
+Plugin 'vim-airline/vim-airline'
+Plugin 'tpope/vim-fugitive'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'morhetz/gruvbox'
+Plugin 'othree/html5.vim'
 
 call vundle#end()            " required
 """" PLUGINS AREA END
@@ -50,6 +54,9 @@ set showcmd
 
 """ display line numbers
 set number
+
+""" For airline
+set laststatus=2
 
 """ automatically change working directory to the directory of the current file
 autocmd BufEnter * lcd %:p:h
@@ -93,19 +100,16 @@ set colorcolumn=101
 set foldmethod=indent
 set foldnestmax=1
 
-"colorscheme PaperColor
+"colorscheme evening
 "colorscheme Tomorrow
-"colorscheme Tomorrow-Night
+colorscheme evening
 "colorscheme Tomorrow-Night-Bright
 "colorscheme Tomorrow-Night-Eighties
 
 """ Gvim cursor
-highlight Cursor guifg=black guibg=black
-highlight iCursor guifg=black guibg=steelblue
-set guicursor=n-v-c:block-Cursor
-set guicursor+=i:ver100-iCursor
-set guicursor+=n-v-c:blinkon0
-set guicursor+=i:blinkwait10
+highlight Cursor guifg=white guibg=red
+highlight iCursor guifg=white guibg=steelblue
+set guicursor+=a:blinkon0
 
 if &term =~ "xterm\\|rxvt"
     " use an orange cursor in insert mode
@@ -201,7 +205,7 @@ nnoremap ,w :call <SID>StripTrailingWhitespaces()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " open a new tab with t
 " note the trailing space in the command
-nnoremap t :tabedit 
+nnoremap t :tabnew  
 
 " toggle spell checking
 " http://vim.wikia.com/wiki/Toggle_spellcheck_with_function_keys
@@ -224,30 +228,12 @@ nnoremap ,e :setlocal keymap=<CR>:setlocal spell spelllang=en,el<CR>
 nnoremap ,h :setlocal keymap=greek_utf-8<CR>:setlocal spell spelllang=el<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
-""" create parent directories on save
-function s:MkNonExDir(file, buf)
-    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-        let dir=fnamemodify(a:file, ':h')
-        if !isdirectory(dir)
-            call mkdir(dir, 'p')
-        endif
-    endif
-endfunction
-augroup BWCCreateDir
-    autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
-
-
 """ use the mouse in gvim
 if has("gui_running")
     nmap <LeftMouse> <LeftMouse>i
 endif
 
 
-" NERDTree show hidden files
-let NERDTreeShowHidden=1
 " NERDTree key
 map <C-n> :NERDTreeToggle<CR>
 
