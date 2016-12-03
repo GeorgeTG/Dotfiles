@@ -18,26 +18,42 @@ set rtp+=~/.vim/bundle/Vundle.vim
 """" PLUGINS AREA
 call vundle#begin()
 
-"Let the plugin manage it self. Required
+"Let the plugin manage itself. Required
 Plugin 'gmarik/Vundle.vim'
 
-""" plugins
+""" PLUGINS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Functionallity
 Plugin 'ervandew/supertab'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
-Plugin 'rust-lang/rust.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'maxbrunsfeld/vim-yankstack'
-Plugin 'godlygeek/csapprox'
+
+"Python pep8
 Plugin 'nvie/vim-flake8'
-Plugin 'vim-airline/vim-airline'
+
+"Git wrapper
 Plugin 'tpope/vim-fugitive'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'morhetz/gruvbox'
+
+"Rust
+Plugin 'rust-lang/rust.vim'
+Plugin 'cespare/vim-toml'
+
+"Web stuff
 Plugin 'othree/html5.vim'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'pangloss/vim-javascript'
+Plugin 'leafgarland/typescript-vim'
+
+"Eye candy
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'w0ng/vim-hybrid'
+
+"YCM
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()            " required
 """" PLUGINS AREA END
@@ -46,7 +62,6 @@ filetype plugin indent on    " required
 
 """ syntax highlighting
 syntax on
-
 set t_Co=256
 
 """ show (partial) command in the last line of the screen
@@ -71,6 +86,7 @@ set showtabline=2
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
+set smarttab
 set expandtab
 set autoindent
 
@@ -79,20 +95,32 @@ set wildmode=longest,full
 set wildmenu
 " case insensitive filename completion
 set wildignorecase
+set wildignore=*.swp,*.bak,*.pyc
+set autowrite
+
+" When vimrc is edited, reload it
+autocmd! bufwritepost vimrc source ~/.vimrc
+
+" With a map leader it's possible to do extra key combinations
+" leader is press comma (,) key
+" like <leader>w saves the current file
+let mapleader=","
+let g:mapleader=","
+
+" Fast saving with leader + w
+nmap <leader>w :w!<cr>
+
+" Fast editing of the .vimrc
+map <leader>e :e! ~/.vimrc<cr>
 
 """ search
-" If the 'ignorecase' option is on, the case of normal letters is ignored.
-" 'smartcase' can be set to ignore case when the pattern contains lowercase
-" letters only.
-set ignorecase
+" ignore case when the pattern contains lowercase letters only.
 set smartcase
-" While typing a search command, show where the pattern, as it was typed
-" so far, matches.
+" incremental search
 set incsearch
 
 
-""" source code lines should be at most 101 characters wide
-""" set a marker on the 81th text column
+""" set a marker on the 101st text column
 set colorcolumn=101
 
 """ folds
@@ -100,11 +128,9 @@ set colorcolumn=101
 set foldmethod=indent
 set foldnestmax=1
 
-"colorscheme evening
-"colorscheme Tomorrow
-colorscheme evening
-"colorscheme Tomorrow-Night-Bright
-"colorscheme Tomorrow-Night-Eighties
+""" EYECANDY 
+colorscheme hybrid_reverse
+let g:airline_theme="lucius"
 
 """ Gvim cursor
 highlight Cursor guifg=white guibg=red
@@ -141,7 +167,6 @@ hi link EasyMotionTarget2Second EasyMotionTarget
 set encoding=utf-8
 
 
-nmap <leader>l :set list!<CR>
 set listchars=tab:▸\ ,eol:¬
 
 
@@ -177,29 +202,6 @@ autocmd FileType sql setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 
 " yaml
 autocmd FileType yaml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-
-
-""" strip trailing whitespace
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! <SID>StripTrailingWhitespaces()
-    " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
-" strip trailing whitespace on save
-autocmd BufWritePre *.asm,*.c,*.css,*.h,*.html,*.jade,*.java,*.m,*.md,*.markdown,*.js,*.py,*.sh,*.styl,*.sql,*.txt,*.v :call <SID>StripTrailingWhitespaces()
-
-" map the <SID>StripTrailingWhitespaces function to a shortcut
-"nnoremap <silent> ,s :call <SID>StripTrailingWhitespaces()<CR>
-nnoremap ,w :call <SID>StripTrailingWhitespaces()<CR>
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 
 """ custom shortcuts
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -240,6 +242,3 @@ map <C-n> :NERDTreeToggle<CR>
 """ open folds when opening a file
 au BufRead * normal zR
 
-
-""" from "Vim as a Python IDE"
-set clipboard=unnamedplus
