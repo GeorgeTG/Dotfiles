@@ -1,39 +1,56 @@
-""" .vimrc
+""" init.vim
 
-
-
-""" Vundle
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
-if has('vim_starting')
-    if &compatible
-        set nocompatible               " Be iMproved
-    endif
+"dein Scripts-----------------------------
+if &compatible
+    set nocompatible               " Be iMproved
+endif
 
 " Required:
-    set runtimepath+=~/.config/nvim/bundle/neobundle.vim/
-endif
-call neobundle#begin(expand('~/.config/nvim/bundle/'))
-"Let the plugin manage it self. Required
-NeoBundleFetch 'Shougo/neobundle.vim'
-""" plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundleFetch 'Lokaltog/vim-easymotion'
-NeoBundleFetch 'ervandew/supertab'
-NeoBundleFetch 'scrooloose/nerdcommenter'
-NeoBundleFetch 'scrooloose/nerdtree'
-NeoBundleFetch 'scrooloose/syntastic'
-NeoBundleFetch 'chriskempson/tomorrow-theme', {'rtp': 'vim/'}
-NeoBundleFetch 'CSApprox'
-" All of your Plugins must be added before the following line
-call neobundle#end()
-filetype plugin indent on    " required
+set runtimepath+=/home/georgetg/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 
-NeoBundleCheck
+" Required:
+if dein#load_state('/home/georgetg/.config/nvim/dein')
+    call dein#begin('/home/georgetg/.config/nvim/dein')
+
+    " Let dein manage dein
+    " Required:
+    call dein#add('/home/georgetg/.config/nvim/dein/repos/github.com/Shougo/dein.vim')
+
+    " Add or remove your plugins here:
+    call dein#add('Shougo/neosnippet.vim')
+    call dein#add('Shougo/neosnippet-snippets')
+    call dein#add('Shougo/deoplete.nvim')
+    call dein#add('Lokaltog/vim-easymotion')
+    call dein#add('ervandew/supertab')
+    call dein#add('scrooloose/nerdcommenter')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('scrooloose/syntastic')
+    call dein#add('chriskempson/tomorrow-theme', {'rtp': 'vim/'})
+    call dein#add('vim-scripts/CSApprox')
+    call dein#add('vim-airline/vim-airline')
+    call dein#add('vim-airline/vim-airline-themes')
+
+    " Required:
+    call dein#end()
+    call dein#save_state()
+endif
+
+" Required:
+filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
+
+"End dein Scripts-------------------------
+
 """ syntax highlighting
 syntax on
+
+""" deoplete enable
+let g:deoplete#enable_at_startup = 1
 
 set t_Co=256
 
