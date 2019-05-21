@@ -1,0 +1,13 @@
+{
+    "vim.enableNeovim": true,
+    "vim.neovimPath": "/usr/bin/nvim",
+    "workbench.colorTheme": "Tomorrow Night",
+    "python.linting.flake8Enabled": true,
+    "keyboard.dispatch": "keyCode",
+    "[handlebars]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
+    },
+    "latex-workshop.view.pdf.viewer": "browser",
+    "C_Cpp.updateChannel": "Insiders",
+}
